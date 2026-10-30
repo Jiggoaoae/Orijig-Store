@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORIGIG DIY CHARM BAR</title>
+<style>
+:root{--ink:#292522;--muted:#817a73;--line:#e8e1d9;--pink:#f6e9e8;--cream:#fbf8f4;--accent:#9c6c65}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1080px;margin:auto;padding:22px 16px 50px}.brand{text-align:center;padding:12px 0 20px}.brand small{letter-spacing:3px;color:var(--muted)}h1{font-family:Georgia,serif;font-weight:500;letter-spacing:2px;margin:8px 0;font-size:clamp(25px,5vw,38px)}.sub{color:var(--muted);font-size:14px}
+.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:start}.panel{border:1px solid var(--line);border-radius:18px;padding:16px;background:white}.preview{background:var(--cream)}.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.label{font-weight:650;margin:0 0 10px}.bracelet-stage{position:relative;min-height:300px;display:grid;place-items:center;overflow:hidden}.bracelet{width:min(100%,430px);height:auto;overflow:visible}.bead-on{cursor:grab;touch-action:none}.bead-on:active{cursor:grabbing}.help{font-size:12px;color:var(--muted);text-align:center}.price{font-size:26px;font-weight:700}.muted{color:var(--muted);font-size:13px}.bases,.categories,.products{display:flex;gap:8px;flex-wrap:wrap}.pill,button{font:inherit;cursor:pointer}.pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px}.pill.active{border-color:var(--accent);background:var(--pink)}.cat{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:13px}.cat.active{background:var(--ink);color:white}.product{width:calc(25% - 6px);min-width:76px;border:1px solid var(--line);border-radius:12px;padding:8px;background:#fff;text-align:center}.product img{width:100%;height:68px;object-fit:contain;display:block}.product .emoji{height:68px;display:grid;place-items:center;font-size:34px}.product b{font-size:12px;display:block}.product small{font-size:11px;color:var(--muted)}.btn{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:white}.primary{background:var(--ink);color:white;border-color:var(--ink)}.danger{color:#a33}.field{display:grid;gap:5px;margin:8px 0}.field input,.field select{width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;font:inherit}.admin{background:#faf7f3;margin-top:20px}.admin[hidden]{display:none}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.order-list{font-size:13px;color:var(--muted);margin:10px 0}.admin-product{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding:8px 0;font-size:13px}.admin-product img{width:36px;height:36px;object-fit:contain}.notice{background:#fff4df;padding:10px 12px;border-radius:10px;font-size:12px;color:#765d36;margin-top:12px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.product{width:calc(33.333% - 6px)}.bracelet-stage{min-height:260px}.admin-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="brand"><small>YOUR STYLE · YOUR STORY</small><h1>ORIGIG</h1><div class="sub">DIY CHARM BAR — ออกแบบเครื่องประดับในแบบของคุณ</div></header>
+<div class="layout">
+<section class="panel preview">
+ <div class="row"><h2 class="label">แบบของฉัน</h2><button class="btn" id="clear">ล้างแบบ</button></div>
+ <div class="bracelet-stage"><svg id="stage" class="bracelet" viewBox="0 0 420 300" aria-label="พื้นที่จัดวางลูกปัดบนกำไล">
+ <defs><linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f9fafb"/><stop offset=".5" stop-color="#9da5ad"/><stop offset="1" stop-color="#f7f8fa"/></linearGradient><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0ba"/><stop offset=".5" stop-color="#b58a42"/><stop offset="1" stop-color="#f9dfa0"/></linearGradient></defs>
+ <ellipse id="loop" cx="210" cy="145" rx="155" ry="92" fill="none" stroke="url(#silver)" stroke-width="8"/><ellipse cx="210" cy="145" rx="149" ry="86" fill="none" stroke="#fff" stroke-width="1.5" opacity=".9"/><g id="placed"></g></svg></div>
+ <p class="help">แตะลูกปัดเพื่อเพิ่ม หรือ ลากลูกปัดจากรายการมาวางบนกำไล · แตะลูกปัดบนกำไลเพื่อลบ</p>
+ <div class="row"><div><div class="muted">จำนวนลูกปัด</div><b id="count">0 ชิ้น</b></div><div style="text-align:right"><div class="muted">ราคารวม</div><div class="price" id="total">฿29</div></div></div>
+ <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+ <h3 class="label">1. เลือกฐานกำไล</h3><div class="bases" id="bases"></div>
+ <div class="order-list" id="selected"></div>
+ <button class="btn primary" id="order" style="width:100%">สรุปแบบและส่งคำสั่งซื้อ</button>
+ <div id="order-result" class="notice" hidden></div>
+</section>
+<section class="panel">
+ <h2 class="label">2. เลือกลูกปัดของคุณ</h2><div class="muted" style="margin-bottom:12px">เลือกสีและรูปทรงที่ชอบได้เลย</div>
+ <div class="categories" id="cats" style="margin-bottom:14px"></div>
+ <div class="products" id="products"></div>
+ <div class="notice">ราคาลูกปัดแยกตามแบบ ระบบจะคำนวณราคารวมให้อัตโนมัติ รูปและราคาสามารถแก้ไขได้ในเมนูผู้ดูแลร้าน</div>
+</section></div>
+<section class="panel admin" id="admin" hidden>
+ <div class="row"><div><h2 class="label">จัดการร้านค้า · ADMIN</h2><div class="muted">เพิ่ม แก้ไข ลบสินค้า เปลี่ยนรูปและราคาได้จากหน้านี้</div></div><button class="btn" id="hide-admin">ปิดเมนู</button></div>
+ <div class="admin-grid">
+ <div>
+  <div class="field"><label>ชื่อสินค้า</label><input id="pname" placeholder="เช่น หัวใจชมพู"></div>
+  <div class="field"><label>หมวดหมู่</label><input id="pcat" placeholder="เช่น หัวใจ / มุก / ดอกไม้"></div>
+  <div class="field"><label>ขนาด</label><input id="psize" placeholder="เช่น 8 mm"></div>
+  <div class="field"><label>ราคา (บาท/ชิ้น)</label><input id="pprice" type="number" min="0" step="1" placeholder="20"></div>
+  <div class="field"><label>รูปสินค้า</label><input id="pimage" type="file" accept="image/*"></div>
+  <div class="row"><button class="btn primary" id="save-product">บันทึกสินค้า</button><button class="btn" id="cancel-edit">ล้างช่อง</button></div>
+  <div class="muted" id="edit-status" style="margin-top:8px">เพิ่มสินค้าใหม่ หรือกดแก้ไขจากรายการด้านขวา</div>
+ </div>
+ <div><h3 class="label">ฐานกำไลและราคาเริ่มต้น</h3>
+  <div class="field"><label>กำไลพินอินสีเงิน (บาท)</label><input id="price-pin" type="number" min="0"></div>
+  <div class="field"><label>เอ็นยืด (บาท)</label><input id="price-elastic" type="number" min="0"></div>
+  <button class="btn primary" id="save-base">บันทึกราคาฐาน</button>
+  <div class="notice">ข้อมูลร้านและรูปที่อัปโหลดจะบันทึกไว้ในเบราว์เซอร์เครื่องนี้ หากเปลี่ยนเครื่องหรือเคลียร์ข้อมูลเบราว์เซอร์ ต้องนำเข้าข้อมูลสำรองอีกครั้ง</div>
+ </div></div>
+ <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+ <div class="row"><h3 class="label">รายการลูกปัดในร้าน</h3><div><button class="btn" id="export">สำรองข้อมูล</button><label class="btn" for="importfile">นำเข้าข้อมูล</label><input id="importfile" type="file" accept="application/json" hidden></div></div>
+ <div id="admin-products"></div>
+</section>
+<footer class="row" style="margin-top:18px"><span class="muted">ORIGIG DIY CHARM BAR · DEMO</span><button class="btn" id="admin-toggle">เมนูผู้ดูแลร้าน</button></footer>
+</main>
+<script>
+(()=>{
+const KEY='origig_charm_v1';
+const defaults=[
+{id:'d1',name:'ลูกปัดตัวอย่าง',cat:'ลูกปัดทั้งหมด',size:'แก้ไขขนาดได้',price:10,emoji:'🤍',image:''}
+];
+let data={products:defaults,bases:[{id:'pin',name:'กำไลพินอินสีเงิน',price:29},{id:'elastic',name:'เอ็นยืด',price:10}]};
+try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved?.products&&saved?.bases)data=saved}catch(e){}
+let base='pin',placed=[],category='ทั้งหมด',editing=null,pendingImage='';
+const $=id=>document.getElementById(id);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){alert('พื้นที่จัดเก็บรูปอาจเต็ม กรุณาใช้รูปที่มีขนาดเล็กลง');}};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function renderBases(){ $('bases').innerHTML=data.bases.map(b=>`<button class="pill ${base===b.id?'active':''}" data-base="${esc(b.id)}">${esc(b.name)} · ฿${b.price}</button>`).join('');document.querySelectorAll('[data-base]').forEach(b=>b.onclick=()=>{base=b.dataset.base;render()});}
+function categories(){let cats=['ทั้งหมด',...new Set(data.products.map(p=>p.cat||'อื่น ๆ'))];$('cats').innerHTML=cats.map(c=>`<button class="cat ${category===c?'active':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{category=b.dataset.cat;renderProducts()});}
+function renderProducts(){categories();let list=data.products.filter(p=>category==='ทั้งหมด'||p.cat===category);$('products').innerHTML=list.map(p=>`<button class="product" draggable="true" data-add="${esc(p.id)}" aria-label="เพิ่ม ${esc(p.name)}"><span class="emoji">${p.image?`<img src="${p.image}" alt="${esc(p.name)}">`:esc(p.emoji||'🔘')}</span><b>${esc(p.name)}</b><small>${esc(p.size||'')} · ฿${p.price}</small></button>`).join('')||'<p class="muted">ยังไม่มีสินค้าในหมวดนี้</p>';document.querySelectorAll('[data-add]').forEach(b=>{b.onclick=()=>add(b.dataset.add);b.ondragstart=e=>{e.dataTransfer.setData('text/plain',b.dataset.add)}});}
+function beadSVG(p,x,y,i){if(p.image)return `<image href="${p.image}" x="${x-16}" y="${y-16}" width="32" height="32" preserveAspectRatio="xMidYMid meet" class="bead-on" data-remove="${i}"/>`;let hue=p.color||'#e8cbd1';return `<g class="bead-on" data-remove="${i}"><circle cx="${x}" cy="${y}" r="13" fill="${esc(hue)}" stroke="#9e8b82" stroke-width="1.2"/><circle cx="${x-4}" cy="${y-5}" r="4" fill="#fff" opacity=".65"/></g>`}
+function renderStage(){let n=placed.length;let points=placed.map((id,i)=>{let p=data.products.find(x=>x.id===id);if(!p)return '';let a=-Math.PI/2+i*2*Math.PI/Math.max(n,1);let x=210+155*Math.cos(a),y=145+92*Math.sin(a);return beadSVG(p,x,y,i)}).join('');$('placed').innerHTML=points;document.querySelectorAll('[data-remove]').forEach(el=>el.onclick=()=>{placed.splice(+el.dataset.remove,1);render()});}
+function render(){renderBases();renderProducts();renderStage();let b=data.bases.find(x=>x.id===base)||data.bases[0];let total=(b?.price||0)+placed.reduce((s,id)=>s+(data.products.find(p=>p.id===id)?.price||0),0);$('count').textContent=placed.length+' ชิ้น';$('total').textContent='฿'+total;$('selected').textContent=placed.length?'เลือกแล้ว: '+placed.map(id=>data.products.find(p=>p.id===id)?.name).filter(Boolean).join(' · '):'ยังไม่ได้เลือกลูกปัด';}
+function add(id){if(placed.length>=30){alert('ตัวอย่างนี้เลือกได้สูงสุด 30 ชิ้น');return}if(data.products.some(p=>p.id===id)){placed.push(id);render()}}
+$('stage').addEventListener('dragover',e=>e.preventDefault());$('stage').addEventListener('drop',e=>{e.preventDefault();add(e.dataTransfer.getData('text/plain'))});
+$('clear').onclick=()=>{placed=[];render();$('order-result').hidden=true};
+$('order').onclick=()=>{let b=data.bases.find(x=>x.id===base);let lines=placed.map(id=>{let p=data.products.find(x=>x.id===id);return p?`${p.name} (${p.size||'-'}) ฿${p.price}`:''}).filter(Boolean);let total=(b?.price||0)+placed.reduce((s,id)=>s+(data.products.find(p=>p.id===id)?.price||0),0);let msg=`ORIGIG DIY ORDER\nฐาน: ${b?.name||''} ฿${b?.price||0}\nลูกปัด:\n${lines.length?lines.join('\n'):'ไม่ได้เลือกลูกปัด'}\nรวมประมาณ ฿${total}`;$('order-result').hidden=false;$('order-result').innerHTML=`<b>สรุปแบบของคุณ</b><br>${esc(msg).replace(/\n/g,'<br>')}<br><br><button class="btn primary" id="share-order">แชร์คำสั่งซื้อ</button> <button class="btn" id="copy-order">คัดลอกข้อความ</button>`;$('share-order').onclick=()=>{if(navigator.share)navigator.share({title:'ORIGIG DIY ORDER',text:msg}).catch(()=>{});else window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank')};$('copy-order').onclick=async()=>{try{await navigator.clipboard.writeText(msg);alert('คัดลอกแล้ว')}catch(e){prompt('คัดลอกข้อความนี้',msg)}};};
+$('admin-toggle').onclick=()=>{$('admin').hidden=false;$('admin').scrollIntoView({behavior:'smooth'});fillBase()};$('hide-admin').onclick=()=>$('admin').hidden=true;
+function fillBase(){$('price-pin').value=data.bases.find(x=>x.id==='pin')?.price??29;$('price-elastic').value=data.bases.find(x=>x.id==='elastic')?.price??10}
+$('save-base').onclick=()=>{data.bases.find(x=>x.id==='pin').price=Math.max(0,+$('price-pin').value||0);data.bases.find(x=>x.id==='elastic').price=Math.max(0,+$('price-elastic').value||0);save();render();alert('บันทึกราคาฐานแล้ว')};
+function resetForm(){editing=null;pendingImage='';['pname','pcat','psize','pprice'].forEach(id=>$(id).value='');$('pimage').value='';$('edit-status').textContent='เพิ่มสินค้าใหม่ หรือกดแก้ไขจากรายการด้านขวา';$('save-product').textContent='บันทึกสินค้า'}
+$('cancel-edit').onclick=resetForm;
+$('pimage').onchange=e=>{let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{let im=new Image();im.onload=()=>{let c=document.createElement('canvas'),scale=Math.min(1,600/Math.max(im.width,im.height));c.width=Math.round(im.width*scale);c.height=Math.round(im.height*scale);c.getContext('2d').drawImage(im,0,0,c.width,c.height);pendingImage=c.toDataURL('image/jpeg',.82)};im.src=reader.result};reader.readAsDataURL(f)};
+$('save-product').onclick=()=>{let name=$('pname').value.trim(),cat=$('pcat').value.trim()||'อื่น ๆ',price=Number($('pprice').value);if(!name||$('pprice').value===''||!Number.isFinite(price)||price<0){alert('กรอกชื่อสินค้าและราคาที่ถูกต้องก่อน');return}let item=editing?data.products.find(p=>p.id===editing):{id:'p'+Date.now(),emoji:'🔘'};item.name=name;item.cat=cat;item.size=$('psize').value.trim();item.price=price;if(pendingImage)item.image=pendingImage;if(!editing)data.products.push(item);save();resetForm();render();renderAdmin();};
+function renderAdmin(){$('admin-products').innerHTML=data.products.map(p=>`<div class="admin-product">${p.image?`<img src="${p.image}">`:`<span style="font-size:25px">${esc(p.emoji||'🔘')}</span>`}<span style="flex:1"><b>${esc(p.name)}</b><br><span class="muted">${esc(p.cat)} · ${esc(p.size||'')} · ฿${p.price}</span></span><button class="btn" data-edit="${esc(p.id)}">แก้ไข</button><button class="btn" data-del="${esc(p.id)}">ลบ</button></div>`).join('')||'<p class="muted">ยังไม่มีสินค้า</p>';document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{let p=data.products.find(x=>x.id===b.dataset.edit);editing=p.id;pendingImage='';$('pname').value=p.name;$('pcat').value=p.cat;$('psize').value=p.size||'';$('pprice').value=p.price;$('pimage').value='';$('edit-status').textContent='กำลังแก้ไข: '+p.name+' (ถ้าไม่เลือกรูปใหม่ จะใช้รูปเดิม)';$('save-product').textContent='บันทึกการแก้ไข'});document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(confirm('ลบสินค้านี้ใช่ไหม?')){data.products=data.products.filter(p=>p.id!==b.dataset.del);placed=placed.filter(id=>id!==b.dataset.del);save();render();renderAdmin()}})}
+$('export').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='origig-products-backup.json';a.click();URL.revokeObjectURL(a.href)};
+$('importfile').onchange=e=>{let f=e.target.files[0];if(!f)return;let rd=new FileReader();rd.onload=()=>{try{let d=JSON.parse(rd.result);if(!Array.isArray(d.products)||!Array.isArray(d.bases))throw 0;data=d;save();render();renderAdmin();fillBase();alert('นำเข้าข้อมูลสำเร็จ')}catch(err){alert('ไฟล์ข้อมูลไม่ถูกต้อง')}};rd.readAsText(f)};
+render();renderAdmin();fillBase();
+})();
+</script></body></html>
