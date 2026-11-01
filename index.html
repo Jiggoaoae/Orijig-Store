@@ -14,9 +14,12 @@
 <body><main class="wrap">
 <header class="brand"><small>YOUR STYLE · YOUR STORY</small><h1>ORIJIG</h1><div class="sub">DIY CHARM BAR — ออกแบบเครื่องประดับในแบบของคุณ</div></header>
 <div class="layout">
-<section class="panel preview">
- <div class=”row“><h2 class=”label“>แบบของฉัน</h2><button class=”btn“ id=”clear“>ล้าง</button></div>
- <div class=”bracelet-stage“>
+<div class=”row“>
+  <h2 class=”label“>แบบของฉัน</h2>
+  <button class=”btn“ id=”clear“>ล้าง</button>
+</div>
+
+<div class=”bracelet-stage“>
   <svg id=”stage“ class=”bracelet“ viewBox=”0 0 420 300“ aria-label=”พื้นที่จัดวางลูกปัดบนกำไล“>
     <defs>
       <linearGradient id=”silver“ x1=”0“ y1=”0“ x2=”1“ y2=”1“>
@@ -24,15 +27,16 @@
         <stop offset=”.5“ stop-color=”#9da5ad“/>
         <stop offset=”1“ stop-color=”#f7f8fa“/>
       </linearGradient>
-
       <pattern id=”oliveStripe“ patternUnits=”userSpaceOnUse“ width=”18“ height=”18“ patternTransform=”rotate(45)“>
         <rect width=”9“ height=”18“ fill=”#68733F“/>
         <rect x=”9“ width=”9“ height=”18“ fill=”#F3E7B5“/>
       </pattern>
     </defs>
-
     <ellipse id=”loop“ cx=”210“ cy=”145“ rx=”155“ ry=”92“ fill=”none“ stroke=”url(#oliveStripe)“ stroke-width=”8“/>
     <ellipse cx=”210“ cy=”145“ rx=”149“ ry=”86“ fill=”none“ stroke=”#fff“ stroke-width=”1.5“ opacity=”.9“/>
+    <g id=”placed“></g>
+  </svg>
+</div>
     <g id=”placed“></g>
   </svg>
 </div>
