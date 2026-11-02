@@ -172,4 +172,121 @@ $('export').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'
 $('importfile').onchange=e=>{let f=e.target.files[0];if(!f)return;let rd=new FileReader();rd.onload=()=>{try{let d=JSON.parse(rd.result);if(!Array.isArray(d.products)||!Array.isArray(d.bases))throw 0;data=d;save();render();renderAdmin();fillBase();alert('นำเข้าข้อมูลสำเร็จ')}catch(err){alert('ไฟล์ข้อมูลไม่ถูกต้อง')}};rd.readAsText(f)};
 render();renderAdmin();fillBase();
 })();
+</script><div id="admin-login" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0008;
+  z-index:99999;
+  justify-content:center;
+  align-items:center;
+">
+  <div style="
+    background:#fff;
+    padding:25px;
+    border-radius:20px;
+    width:90%;
+    max-width:350px;
+  ">
+    <h2>ORIJIG ADMIN</h2>
+
+    <input id="admin-email"
+      type="email"
+      placeholder="อีเมลผู้ดูแล"
+      style="width:100%;padding:12px;margin:8px 0">
+
+    <input id="admin-password"
+      type="password"
+      placeholder="รหัสผ่าน"
+      style="width:100%;padding:12px;margin:8px 0">
+
+    <button id="admin-login-btn">เข้าสู่ระบบ</button>
+    <button id="admin-close-btn">ปิด</button>
+
+    <p id="admin-message"></p>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+// ตั้งค่า Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCnkS9hzZz0rGbPJkYZunROqC60t_G1vQE",
+  authDomain: "orijig-store.firebaseapp.com",
+  projectId: "orijig-store",
+  storageBucket: "orijig-store.firebasestorage.app",
+  messagingSenderId: "338658529960",
+  appId: "1:338658529960:web:9c626ff9d398dd4e75e89d"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// ใส่อีเมลเดียวกับบัญชีผู้ดูแล Firebase
+const ADMIN_EMAIL = ponsakdipannuka@gmail.com;
+
+const loginBox = document.getElementById("admin-login");
+const message = document.getElementById("admin-message");
+const adminPanel = document.getElementById("admin");
+
+document.getElementById("admin-toggle").addEventListener(
+  "click",
+  (event) => {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    if (auth.currentUser?.email === ADMIN_EMAIL) {
+      adminPanel.hidden = false;
+    } else {
+      loginBox.style.display = "flex";
+    }
+  },
+  true
+);
+
+document.getElementById("admin-login-btn").onclick =
+async () => {
+  const email = document.getElementById("admin-email").value.trim();
+  const password = document.getElementById("admin-password").value;
+
+  try {
+    if (email !== ADMIN_EMAIL) {
+      throw new Error("ไม่มีสิทธิ์ผู้ดูแลระบบ");
+    }
+
+    await signInWithEmailAndPassword(auth, email, password);
+
+    loginBox.style.display = "none";
+    adminPanel.hidden = false;
+    message.textContent = "";
+
+  } catch (error) {
+    message.textContent = "เข้าสู่ระบบไม่ได้จ้าน้อง";
+  }
+};
+
+document.getElementById("admin-close-btn").onclick = () => {
+  loginBox.style.display = "none";
+};
+
+onAuthStateChanged(auth, (user) => {
+  if (!user || user.email !== ADMIN_EMAIL) {
+    adminPanel.hidden = true;
+  }
+});
+
+// เรียกใช้เมื่อต้องการออกจากระบบ
+window.orijigAdminLogout = async () => {
+  await signOut(auth);
+  adminPanel.hidden = true;
+};
 </script></body></html>
