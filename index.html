@@ -4,26 +4,78 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ORIJIG DIY CHARM BAR</title>
 <style>
-:root{
-  --ink:#292522;
-  --muted:#817a73;
-  --line:#e5e2d2;
-  --pink:#edf0dc;
-  --cream:#f5f3e4;
-  --accent:#737b4b;
+  :root {
+  --ink: #454638;
+  --muted: #898779;
+  --line: #e5dfd2;
+  --pink: #f6dce5;
+  --cream: #fff3cc;
+  --accent: #747b4b;
+  --olive: #747b4b;
+  --silver: #c0c0c0;
 }
-*{box-sizing:border-box}body{margin:0;background:#faf9f1;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-.wrap{max-width:1080px;margin:auto;padding:22px 16px 50px}.brand{text-align:center;padding:12px 0 20px}.brand small{letter-spacing:3px;color:var(--muted)}h1{font-family:Georgia,serif;font-weight:500;letter-spacing:2px;margin:8px 0;font-size:clamp(25px,5vw,38px)}.sub{color:var(--muted);font-size:14px}
-.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:start}.panel{border:1px solid var(--line);border-radius:18px;padding:16px;background:white}.preview{background:var(--cream)}.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.label{font-weight:650;margin:0 0 10px}.bracelet-stage{position:relative;min-height:300px;display:grid;place-items:center;overflow:hidden}.bracelet{width:min(100%,430px);height:auto;overflow:visible}.bead-on{cursor:grab;touch-action:none}.bead-on:active{cursor:grabbing}.help{font-size:12px;color:var(--muted);text-align:center}.price{font-size:26px;font-weight:700}.muted{color:var(--muted);font-size:13px}.bases,.categories,.products{display:flex;gap:8px;flex-wrap:wrap}.pill,button{font:inherit;cursor:pointer}.pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px}.pill.active{border-color:var(--accent);background:var(--pink)}.cat{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:13px}.cat.active{background:var(--ink);color:white}.product{width:calc(25% - 6px);min-width:76px;border:1px solid var(--line);border-radius:12px;padding:8px;background:#fff;text-align:center}.product img{width:100%;height:68px;object-fit:contain;display:block}.product .emoji{height:68px;display:grid;place-items:center;font-size:34px}.product b{font-size:12px;display:block}.product small{font-size:11px;color:var(--muted)}.btn{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:white}.primary{background:var(--ink);color:white;border-color:var(--ink)}.danger{color:#a33}.field{display:grid;gap:5px;margin:8px 0}.field input,.field select{width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;font:inherit}.admin{background:#faf7f3;margin-top:20px}.admin[hidden]{display:none}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.order-list{font-size:13px;color:var(--muted);margin:10px 0}.admin-product{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding:8px 0;font-size:13px}.admin-product img{width:36px;height:36px;object-fit:contain}.notice{background:#fff4df;padding:10px 12px;border-radius:10px;font-size:12px;color:#765d36;margin-top:12px}
-@media(max-width:760px){.layout{grid-template-columns:1fr}.product{width:calc(33.333% - 6px)}.bracelet-stage{min-height:260px}.admin-grid{grid-template-columns:1fr}}
-/ กล่องแสดงกำไล /
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.wrap {
+  max-width: 1080px;
+  margin: auto;
+  padding: 22px 16px 50px;
+}
+.brand {
+  text-align: center;
+  padding: 12px 0 20px;
+}
+.brand small {
+  letter-spacing: 3px;
+  color: var(--muted);
+}
+h1 {
+  font-family: Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin: 8px 0;
+  font-size: clamp(25px, 5vw, 38px);
+}
+.sub {
+  color: var(--muted);
+  font-size: 14px;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 20px;
+  align-items: start;
+}
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px;
+  background: white;
+}
 .preview {
-  background: #f5f3e4;
+  background: var(--cream);
   border-radius: 24px;
   padding: 20px;
 }
-
-/ พื้นหลังลายทาง /
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.label {
+  font-weight: 650;
+  margin: 0 0 10px;
+}
+/* พื้นที่ออกแบบกำไล */
 .bracelet-stage {
   width: 100%;
   min-height: 420px;
@@ -31,33 +83,24 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  border-radius: 20px;
   overflow: hidden;
-
-  background: repeating-linear-gradient(
-    90deg,
-    #68733f 0px,
-    #68733f 35px,
-    #fff5b9 35px,
-    #fff5b9 70px
-  );
+  border-radius: 20px;
+  background: transparent;
 }
-
-/ วงรีสีชมพูรองรับกำไล /
+/* วงรีสีชมพู */
 .bracelet-stage::before {
   content: "";
   position: absolute;
-  width: 280px;
-  height: 180px;
-  background: #f6d6e1;
+  width: min(80%, 340px);
+  height: 210px;
+  background: var(--pink);
   border-radius: 50%;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
 }
-
-/ กำไลอยู่ตรงกลาง /
+/* กำไลสีเงิน */
 .bracelet {
   display: block;
   width: min(90%, 460px);
@@ -65,6 +108,169 @@
   margin: auto;
   position: relative;
   z-index: 2;
+  overflow: visible;
+}
+.bead-on {
+  cursor: grab;
+  touch-action: none;
+}
+.bead-on:active {
+  cursor: grabbing;
+}
+.help {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+.price {
+  font-size: 26px;
+  font-weight: 700;
+}
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+.bases,
+.categories,
+.products {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pill,
+button {
+  font: inherit;
+  cursor: pointer;
+}
+.pill {
+  border: 1px solid var(--line);
+  background: white;
+  border-radius: 999px;
+  padding: 9px 13px;
+}
+.pill.active {
+  border-color: var(--accent);
+  background: var(--pink);
+}
+.cat {
+  border: 1px solid var(--line);
+  background: white;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+.cat.active {
+  background: var(--olive);
+  color: white;
+}
+.product {
+  width: calc(25% - 6px);
+  min-width: 76px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 8px;
+  background: white;
+  text-align: center;
+}
+.product img {
+  width: 100%;
+  height: 68px;
+  object-fit: contain;
+  display: block;
+}
+.product .emoji {
+  height: 68px;
+  display: grid;
+  place-items: center;
+  font-size: 34px;
+}
+.product b {
+  font-size: 12px;
+  display: block;
+}
+.product small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.btn {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: white;
+}
+.primary {
+  background: var(--olive);
+  color: white;
+  border-color: var(--olive);
+}
+.danger {
+  color: #a33;
+}
+.field {
+  display: grid;
+  gap: 5px;
+  margin: 8px 0;
+}
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  font: inherit;
+}
+.admin {
+  background: #faf7f3;
+  margin-top: 20px;
+}
+.admin[hidden] {
+  display: none;
+}
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.order-list {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 10px 0;
+}
+.admin-product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding: 8px 0;
+  font-size: 13px;
+}
+.admin-product img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+.notice {
+  background: #fff4df;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #765d36;
+  margin-top: 12px;
+}
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .product {
+    width: calc(33.333% - 6px);
+  }
+  .bracelet-stage {
+    min-height: 300px;
+  }
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
