@@ -342,7 +342,7 @@ button {
  <div class="row"><h3 class="label">รายการลูกปัดในร้าน</h3><div><button class="btn" id="export">สำรองข้อมูล</button><label class="btn" for="importfile">นำเข้าข้อมูล</label><input id="importfile" type="file" accept="application/json" hidden></div></div>
  <div id="admin-products"></div>
 </section>
-<footer class="row" style="margin-top:18px"><span class="muted">ORIGIG DIY CHARM BAR · DEMO</span><button class="btn" id="admin-toggle">เมนูผู้ดูแลร้าน</button></footer>
+<footer class="row" style="margin-top:18px"><span class="muted">ORIGIG DIY CHARM BAR · DEMO</span><button class="btn" id="admin-toggle" hidden>เมนูผู้ดูแลร้าน</button></footer>
 </main>
 <script>
 (()=>{
@@ -439,6 +439,16 @@ const auth = getAuth(app);
 
 // ใส่อีเมลเดียวกับบัญชีผู้ดูแล Firebase
 const ADMIN_EMAIL = "ponsakdipannuka@gmail.com";
+  onAuthStateChanged(auth, (user) => {
+  const isAdmin =
+    user && user.email === ADMIN_EMAIL;
+
+  document.getElementById(”admin-toggle“).hidden = !isAdmin;
+
+  if (!isAdmin) {
+    document.getElementById(”admin“).hidden = true;
+  }
+});
 
 const loginBox = document.getElementById("admin-login");
 const message = document.getElementById("admin-message");
