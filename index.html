@@ -443,7 +443,7 @@ const ADMIN_EMAIL = "ponsakdipannuka@gmail.com";
   const isAdmin =
     user && user.email === ADMIN_EMAIL;
 
-  document.getElementById(”admin-toggle“).hidden = !isAdmin;
+  document.getElementById(”admin-toggle“).hidden = false;
 
   if (!isAdmin) {
     document.getElementById(”admin“).hidden = true;
